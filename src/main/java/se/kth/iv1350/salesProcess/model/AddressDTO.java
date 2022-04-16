@@ -10,6 +10,7 @@ public class AddressDTO {
     private final String city;
 
     /**
+     * Constructor for the instantiation of an address.
      *
      * @param streetName the name of the street
      * @param streetNumber the number of the street incl letters
