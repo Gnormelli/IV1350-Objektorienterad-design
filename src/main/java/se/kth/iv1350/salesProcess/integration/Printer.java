@@ -8,6 +8,9 @@ import se.kth.iv1350.salesProcess.model.Receipt;
  */
 public class Printer {
 
+    /**
+     * An instance of a printer
+     */
     public Printer(){}
 
     /**
@@ -16,7 +19,7 @@ public class Printer {
      *
      * @param receipt the receipt of the sale
      */
-    public void printReceipt(Receipt receipt){
-        System.out.println();
+    public void printReceipt(Receipt receipt) {
+        System.out.println(receipt.createStringReceipt());
     }
 }
