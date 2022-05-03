@@ -41,7 +41,7 @@ public class View {
             System.out.println(printUpdateInList(addedItem));
         }
         float totalPriceIncVAT = contr.endSale();
-        System.out.println("Total price inc VAT: " + totalPriceIncVAT + " kr");
+        System.out.println("Total price inc VAT for purchase: " + totalPriceIncVAT + " kr");
 
         boolean wantsDiscount = askIfCustomerWantsDiscount(scan);
         if(wantsDiscount){
@@ -74,7 +74,7 @@ public class View {
         builder.append("Quantity: " + quantity + ", ");
         builder.append("Prince Excl VAT : " + priceExclVAT + "kr, ");
         builder.append("VAT: " + VAT + "kr, ");
-        builder.append("Total price: " + priceIncVAt + "kr");
+        builder.append("Total price inc VAT For item: " + priceIncVAt + "kr");
 
         return builder.toString();
     }

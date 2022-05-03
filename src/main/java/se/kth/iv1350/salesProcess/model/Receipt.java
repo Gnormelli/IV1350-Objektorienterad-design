@@ -84,7 +84,7 @@ public class Receipt {
             }
         }
         builder.append("    _______________________    "+"\n");
-        builder.append("Summary discounts for this purchaser\n");
+        builder.append("Summary discounts for this purchase\n");
 
         builder.append(
                 "\t\t\t\t\t\t\t "+
