@@ -4,17 +4,17 @@ package se.kth.iv1350.salesProcess.integration;
  * Class for starting up external systems
  */
 public class ExternalSystemStartUp {
-    private ExternalAccountingSystem externalAccountingSystem = new ExternalAccountingSystem();
-    private ExternalInventorySystem externalInventorySystem = new ExternalInventorySystem();
-    private ExternalPaymentSystem externalPaymentSystem = new ExternalPaymentSystem();
-    private DiscountDatabase discountDatabase = new DiscountDatabase();
+    private final ExternalAccountingSystem externalAccountingSystem = new ExternalAccountingSystem();
+    private final ExternalInventorySystem externalInventorySystem = new ExternalInventorySystem();
+    private final ElectronicPaymentSystem electronicPaymentSystem = new ElectronicPaymentSystem();
+    private final DiscountDatabase discountDatabase = new DiscountDatabase();
 
     /**
      * Get the external accounting system data
      *
      * @return values in external accounting system
      */
-    public ExternalAccountingSystem getExternalAccountingSystemSystem() {
+    public ExternalAccountingSystem getExternalAccountingSystem() {
         return externalAccountingSystem;
     }
 
@@ -33,8 +33,8 @@ public class ExternalSystemStartUp {
      *
      * @return the value of external payment system
      */
-    public ExternalPaymentSystem getExternalPaymentSystem() {
-        return externalPaymentSystem;
+    public ElectronicPaymentSystem getElectronicPaymentSystem() {
+        return electronicPaymentSystem;
     }
 
     /**
