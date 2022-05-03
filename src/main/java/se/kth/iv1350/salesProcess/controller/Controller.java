@@ -45,7 +45,7 @@ public class Controller {
         this.EPS = creator.getElectronicPaymentSystem();
         this.printer = printer;
         this.cashRegister = cashRegister;
-        this.salesLog = new SalesLog(EIS, EAS, printer);
+        this.salesLog = new SalesLog(EIS, EAS);
     }
 
     /**
