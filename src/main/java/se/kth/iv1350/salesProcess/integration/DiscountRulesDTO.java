@@ -5,9 +5,9 @@ package se.kth.iv1350.salesProcess.integration;
  */
 public class DiscountRulesDTO {
     private final int percentageRule;
-    private final float quantityToPayForRule;
+    private final String quantityToPayForRule;
     private final int durationOfDiscount;
-    private final ItemDTO discountItem;
+    private final int discountItemIdentifier;
 
     /**
      *
@@ -16,14 +16,14 @@ public class DiscountRulesDTO {
      * @param percentageRule to apply
      * @param quantityToPayForRule to apply
      * @param durationOfDiscount to see if discount valid
-     * @param discountItem instance of one item that discount applies to 
+     * @param discountItemIdentifier instance of one item that discount applies to
      */
 
-    public DiscountRulesDTO(int percentageRule, float quantityToPayForRule, int durationOfDiscount, ItemDTO discountItem) {
+    public DiscountRulesDTO(int percentageRule, String quantityToPayForRule, int durationOfDiscount, int discountItemIdentifier) {
         this.percentageRule = percentageRule;
         this.quantityToPayForRule = quantityToPayForRule;
         this.durationOfDiscount = durationOfDiscount;
-        this.discountItem = discountItem;
+        this.discountItemIdentifier = discountItemIdentifier;
     }
 
 
@@ -41,7 +41,7 @@ public class DiscountRulesDTO {
      *
      * @return value of the quantity to pay for
      */
-    public float getQuantityToPayForRule() {
+    public String getQuantityToPayForRule() {
         return quantityToPayForRule;
     }
 
@@ -59,7 +59,7 @@ public class DiscountRulesDTO {
      *
      * @return the item with discount
      */
-    public ItemDTO getDiscountItem() {
-        return discountItem;
+    public int getDiscountItemIdentifier() {
+        return discountItemIdentifier;
     }
 }
