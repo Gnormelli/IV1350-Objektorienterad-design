@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Main {
     /**
      * Starts up the program.
-     * @param args The application doesn't take any command line input.
+     * @param args The application takes command line input.
      */
     public static void main(String[] args) {
         ExternalSystemStartUp creator = new ExternalSystemStartUp();
