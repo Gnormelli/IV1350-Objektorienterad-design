@@ -1,5 +1,7 @@
 package se.kth.iv1350.salesProcess.integration;
 
+import se.kth.iv1350.salesProcess.model.Sale;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,7 @@ import java.util.List;
  *  Placeholder for inventory system that holds the items possible to buy.
  */
 public class ExternalInventorySystem {
-    private List<itemData> databaseItems = new ArrayList<>();
+    private List<ItemData> inventoryItems = new ArrayList<>();
 
     ExternalInventorySystem(){
         addItem();
@@ -20,7 +22,7 @@ public class ExternalInventorySystem {
      * @return itemDTO if found or null.
      */
     public ItemDTO findItemInInventory(RegisteredItemDTO registeredItemDTO) {
-        for(itemData item :databaseItems){
+        for(ItemData item : inventoryItems){
             if(item.getItemIdentifier() == registeredItemDTO.getItemIdentifier()){
                 return new ItemDTO(item.name, item.itemIdentifier,item.price,
                         item.rateVAT, item.description);
@@ -33,24 +35,32 @@ public class ExternalInventorySystem {
      * Placeholder data in database
      */
     private void addItem(){
-        databaseItems.add(new itemData("Milk", 1, 15, 12.5f,"1,5% Fet, green"));
-        databaseItems.add(new itemData("Pop-corn", 22, 30, 12.5f,"Sea salted"));
-        databaseItems.add(new itemData("Hamburger", 333, 50, 12.5f,"Cow"));
-        databaseItems.add(new itemData("Toilet paper", 4444, 25, 25f,"Extra soft"));
-        databaseItems.add(new itemData("Dishrag", 55555, 15, 25f,"Blue"));
+        inventoryItems.add(new ItemData("Milk", 1, 15, 12.5f,"1,5% Fet, green"));
+        inventoryItems.add(new ItemData("Pop-corn", 22, 30, 12.5f,"Sea salted"));
+        inventoryItems.add(new ItemData("Hamburger", 333, 50, 12.5f,"Cow"));
+        inventoryItems.add(new ItemData("Toilet paper", 4444, 25, 25f,"Extra soft"));
+        inventoryItems.add(new ItemData("Dishrag", 55555, 15, 25f,"Blue"));
     }
 
     /**
-     * Placeholder item data from the database
+     * Used to update the external inventory system with the
+     * information of what items have been sold
+     * @param salesInfo All information of the sale
      */
-    private static class itemData {
-        private String name;
-        private int itemIdentifier;
-        private float price;
-        private float rateVAT;
-        private String description;
+    public void updateInventorySystem(Sale salesInfo) {
+    }
 
-        public itemData(String name, int itemIdentifier, float price,
+    /**
+     * Placeholder class for item data from the inventory database
+     */
+    private static class ItemData {
+        private final String name;
+        private final int itemIdentifier;
+        private final float price;
+        private final float rateVAT;
+        private final String description;
+
+        public ItemData(String name, int itemIdentifier, float price,
                         float rateVAT, String description) {
             this.name = name;
             this.itemIdentifier = itemIdentifier;
