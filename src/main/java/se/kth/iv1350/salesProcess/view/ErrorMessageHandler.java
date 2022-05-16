@@ -7,7 +7,7 @@ import java.time.format.FormatStyle;
 /**
  * Class that showing error message for user.
  */
-public class errorMessageHandler {
+public class ErrorMessageHandler {
     /**
      * Builds and prints error message
      * @param message is the error message to build
