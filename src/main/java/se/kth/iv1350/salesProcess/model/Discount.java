@@ -26,8 +26,8 @@ public class Discount{
         this.discountItem = discountItem;
         this.ruleForDiscount = ruleForDiscount;
         this.discountFactory = DiscountFactory.getDiscountFactory();
-        this.amountPercentageDiscount = discountFactory.getCPD().calculate(discountItem, ruleForDiscount);
-        this.amountQuantityDiscount = discountFactory.getCQD().calculate(discountItem, ruleForDiscount);
+        this.amountPercentageDiscount = discountFactory.getCPD().calculateDiscount(discountItem, ruleForDiscount);
+        this.amountQuantityDiscount = discountFactory.getCQD().calculateDiscount(discountItem, ruleForDiscount);
         this.quantityDiscount = discountFactory.getCQD().getQuantityDiscount();
     }
 

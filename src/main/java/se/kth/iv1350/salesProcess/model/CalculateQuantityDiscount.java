@@ -13,7 +13,7 @@ class CalculateQuantityDiscount implements DiscountStrategy{
     }
 
     @Override
-    public float calculate(SalesItem discountItem, DiscountRulesDTO ruleForDiscount) {
+    public float calculateDiscount(SalesItem discountItem, DiscountRulesDTO ruleForDiscount) {
         this.quantityDiscount = numberOfItemsForDiscount(discountItem, ruleForDiscount);
         float priceIncVAT = discountItem.getSalesItem().getPrice()*
                 (1+discountItem.getSalesItem().getRateVAT()/100);

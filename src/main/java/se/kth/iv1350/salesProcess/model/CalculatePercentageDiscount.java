@@ -16,7 +16,7 @@ class CalculatePercentageDiscount implements DiscountStrategy{
      * @return the price of the item times the percentage discount.
      */
     @Override
-    public float calculate(SalesItem discountItem, DiscountRulesDTO ruleForDiscount) {
+    public float calculateDiscount(SalesItem discountItem, DiscountRulesDTO ruleForDiscount) {
         float price = discountItem.totalPriceIncVATForSalesItem();
         float percentage = ruleForDiscount.getPercentageRule();
         return price*(percentage/100);
