@@ -1,6 +1,8 @@
 package se.kth.iv1350.salesProcess.controller;
 
 import java.util.ArrayList;
+import java.util.List;
+
 import se.kth.iv1350.salesProcess.integration.*;
 import se.kth.iv1350.salesProcess.integration.CashRegister;
 import se.kth.iv1350.salesProcess.model.*;
@@ -30,6 +32,7 @@ public class Controller {
     private final CashRegister cashRegister;
     private Sale salesInfo;
     private final SalesLog salesLog;
+    private List<Observer> observers = new ArrayList<>();
 
     /**
      * Create an instance of the controller
@@ -63,10 +66,14 @@ public class Controller {
      *                          <code>0</code>.
      * @return itemDTO from the database that has matching item identifier
      */
-    public SalesItem addItemToSale(RegisteredItemDTO registeredItemDTO){
-         ItemDTO itemDTO = EIS.findItemInInventory(registeredItemDTO);
-         SalesItem newItem = new SalesItem(registeredItemDTO.getQuantity(), itemDTO);
-         return salesInfo.editSale(newItem);
+    public SalesItem addItemToSale(RegisteredItemDTO registeredItemDTO) throws InvalidItemIdentifierException, OperationFailedException {
+        try {
+            ItemDTO itemDTO = EIS.retrieveItemFromInventory(registeredItemDTO);
+            SalesItem newItem = new SalesItem(registeredItemDTO.getQuantity(), itemDTO);
+            return salesInfo.editSale(newItem);
+        }catch(ExternalInventorySystemException extrnInvenSysExc){
+            throw new OperationFailedException("Could not find item Identifier.", extrnInvenSysExc);
+        }
     }
 
     /**
@@ -112,6 +119,11 @@ public class Controller {
         salesLog.updateSaleInSystems(salesInfo);
 
         Receipt receipt = new Receipt(salesInfo);
+        receipt.addObservers(observers);
         printer.printReceipt(receipt);
+    }
+
+    public void addObserver(Observer obs) {
+        observers.add(obs);
     }
 }
