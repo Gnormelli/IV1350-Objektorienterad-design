@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -33,7 +34,7 @@ class MainTest {
     }
 
     @Test
-    public void testUIHasStarted() {
+    public void testUIHasStarted() throws IOException {
         String[] args = null;
         Main.main(args);
         String printout = printoutBuffer.toString();

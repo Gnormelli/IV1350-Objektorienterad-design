@@ -6,6 +6,7 @@ import se.kth.iv1350.salesProcess.integration.Printer;
 import se.kth.iv1350.salesProcess.integration.CashRegister;
 import se.kth.iv1350.salesProcess.view.View;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -13,7 +14,7 @@ public class Main {
      * Starts up the program.
      * @param args The application takes command line input.
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         ExternalSystemStartUp creator = new ExternalSystemStartUp();
 
         CashRegister cashRegister = new CashRegister();
