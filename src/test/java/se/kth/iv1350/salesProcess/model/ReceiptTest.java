@@ -3,7 +3,6 @@ package se.kth.iv1350.salesProcess.model;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import se.kth.iv1350.salesProcess.integration.CashRegister;
 import se.kth.iv1350.salesProcess.integration.ItemDTO;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -43,14 +42,14 @@ class ReceiptTest {
     }
 
     @Test
-    void testCreateStringReceipt() {
+    void testRetrieveStringReceipt() {
         String expected = storeName+"\n" + address.getStreetName()+" " + address.getStreetNumber()+ "\n"
                 + address.getPostalCode() + " " + address.getCity() + "\n"
                 + "Date: " + salesInfo.getSaleDate()+"     Time:"+ salesInfo.getSaleTime().getHour()
                 + ":"+salesInfo.getSaleTime().getMinute()+"\n"
                 + "Checkout Number: "+ checkoutNumber+"\n"
                 +"Purchase Number: "+ salesInfo.getSalesNumber()+"\n";
-        String result = instanceToTest.createStringReceipt();
+        String result = instanceToTest.retrieveStringReceipt();
         assertTrue(result.contains(expected), "wrong print out");
         assertTrue(result.contains(item.getName()));
         assertTrue(result.contains(Float.toString(salesItem.totalPriceIncVATForSalesItem())));

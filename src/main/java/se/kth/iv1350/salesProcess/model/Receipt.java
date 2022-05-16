@@ -1,14 +1,18 @@
 package se.kth.iv1350.salesProcess.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * All collects all the information of a sale to be printed on
  * the actual receipt.
  */
-public class Receipt {
+public class Receipt extends Publisher {
     private final String storeName;
     private final AddressDTO address;
     private final int checkoutNumber;
     private final Sale salesInfo;
+    //private List<Observer> observers = new ArrayList<>();
 
     /**
      * Create an instance of a receipt
@@ -23,11 +27,21 @@ public class Receipt {
     }
 
     /**
+     * Retrieve a string that is the receipt
+     * @return
+     */
+    public String retrieveStringReceipt(){
+        String stringReceipt = createStringReceipt();
+        notifyObservers(salesInfo);
+        return stringReceipt;
+    }
+
+    /**
      * Create the string representation for the receipt
      *
      * @return string representation of the receipt
      */
-    public String createStringReceipt(){
+    private String createStringReceipt(){
         StringBuilder builder = new StringBuilder();
         builder.append("    ________Receipt________    "+"\n");
         builder.append(storeName+"\n");
@@ -99,4 +113,21 @@ public class Receipt {
         return builder.toString();
     }
 
+
+    /*
+    private void notifyObservers() {
+        for (Observer obs : observers) {
+            obs.settledSale(salesInfo);
+        }
+    }
+
+    public void addObserver(Observer obsr) {
+        observers.add(obsr);
+    }
+
+    public void addSaleObservers(List<Observer> obsrs) {
+        observers.addAll(obsrs);
+    }
+
+     */
 }
