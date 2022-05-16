@@ -7,12 +7,11 @@ import java.util.List;
  * All collects all the information of a sale to be printed on
  * the actual receipt.
  */
-public class Receipt extends Publisher {
+public class Receipt {
     private final String storeName;
     private final AddressDTO address;
     private final int checkoutNumber;
     private final Sale salesInfo;
-    //private List<Observer> observers = new ArrayList<>();
 
     /**
      * Create an instance of a receipt
@@ -32,7 +31,6 @@ public class Receipt extends Publisher {
      */
     public String retrieveStringReceipt(){
         String stringReceipt = createStringReceipt();
-        notifyObservers(salesInfo);
         return stringReceipt;
     }
 
@@ -112,22 +110,4 @@ public class Receipt extends Publisher {
 
         return builder.toString();
     }
-
-
-    /*
-    private void notifyObservers() {
-        for (Observer obs : observers) {
-            obs.settledSale(salesInfo);
-        }
-    }
-
-    public void addObserver(Observer obsr) {
-        observers.add(obsr);
-    }
-
-    public void addSaleObservers(List<Observer> obsrs) {
-        observers.addAll(obsrs);
-    }
-
-     */
 }

@@ -2,7 +2,6 @@ package se.kth.iv1350.salesProcess.model;
 
 import se.kth.iv1350.salesProcess.integration.ExternalAccountingSystem;
 import se.kth.iv1350.salesProcess.integration.ExternalInventorySystem;
-import se.kth.iv1350.salesProcess.integration.Printer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ public class SalesLog {
     private final List<Sale> salesLogList;
     private final ExternalInventorySystem EIS;
     private final ExternalAccountingSystem EAS;
-
 
     /**
      * Create an instance of the sales log
@@ -38,6 +36,8 @@ public class SalesLog {
         salesLogList.add(salesInfo);
     }
 
+
+
     /**
      *  Update the sale in the external Systems
      *
@@ -45,8 +45,8 @@ public class SalesLog {
      */
     public void updateSaleInSystems(Sale salesInfo) {
         salesLogList.set(salesLogList.size()-1, salesInfo);
-
         EIS.updateInventorySystem(salesInfo);
         EAS.updateAccountingSystem(salesInfo);
     }
+
 }
