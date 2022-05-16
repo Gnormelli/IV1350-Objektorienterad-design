@@ -1,9 +1,13 @@
 package se.kth.iv1350.salesProcess.view;
 
 import se.kth.iv1350.salesProcess.controller.Controller;
+import se.kth.iv1350.salesProcess.controller.OperationFailedException;
 import se.kth.iv1350.salesProcess.integration.*;
 import se.kth.iv1350.salesProcess.model.*;
+import se.kth.iv1350.salesProcess.util.Log;
+import se.kth.iv1350.salesProcess.util.TotalRevenueFileOutput;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,14 +19,18 @@ import java.util.Scanner;
 public class View {
     private final Controller contr;
     private List<RegisteredItemDTO> basketOfItems;
+    private Log logger;
 
     /**
      * Constructor for the view.
      *
      * @param contr is the controller in the architectural pattern.
      */
-    public View(Controller contr) {
+    public View(Controller contr) throws IOException {
         this.contr = contr;
+        this.logger = new Log();
+        contr.addObserver(new TotalRevenueView());
+        contr.addObserver(new TotalRevenueFileOutput());
     }
 
     /**
@@ -36,10 +44,18 @@ public class View {
 
         basketOfItems = new ArrayList<>();
         addBasketOfItems();
-        for(RegisteredItemDTO item : basketOfItems){
-             addedItem = contr.addItemToSale(item);
-            System.out.println(printUpdateInList(addedItem));
+        for(RegisteredItemDTO item : basketOfItems) {
+            try {
+                addedItem = contr.addItemToSale(item);
+                System.out.println(printUpdateInList(addedItem));
+            } catch (InvalidItemIdentifierException excp) {
+                errorMessageHandler.buildPrintErrorMessage(excp.getMessage());
+            } catch (OperationFailedException excp) {
+                writeInUIAndLog("Item could not be added.",
+                        (Exception) excp.getCause());
+            }
         }
+
         float totalPriceIncVAT = contr.endSale();
         System.out.println("Total price inc VAT for purchase: " + totalPriceIncVAT + " kr");
 
@@ -54,8 +70,6 @@ public class View {
         contr.enterCashPayment(paidAmount);
 
     }
-
-
 
     /**
      * Print the update in the list of items
@@ -80,12 +94,12 @@ public class View {
     }
 
     /**
-     * Cashier asks customr if they want discount
+     * Cashier asks customer if they want discount
      * @param scan scanner for the program
      * @return boolean igf they want discount
      */
     private boolean askIfCustomerWantsDiscount(Scanner scan){
-        System.out.println("Customer whats discount? Enter YES or NO: \n");
+        System.out.println("Customer wants discount? Enter YES or NO: \n");
         String wantDiscountString = scan.nextLine();
         boolean wantDiscount;
 
@@ -104,8 +118,22 @@ public class View {
         basketOfItems.add(new RegisteredItemDTO(3,55555));
         basketOfItems.add(new RegisteredItemDTO(2,333));
         basketOfItems.add(new RegisteredItemDTO(3,55555));
+        basketOfItems.add(new RegisteredItemDTO(1,666666));
+        basketOfItems.add(new RegisteredItemDTO(1,123456));
         basketOfItems.add(new RegisteredItemDTO(1,333));
         basketOfItems.add(new RegisteredItemDTO(2,1));
+        basketOfItems.add(new RegisteredItemDTO(1,666666));
+        basketOfItems.add(new RegisteredItemDTO(1,123456));
         basketOfItems.add(new RegisteredItemDTO(1,55555));
+    }
+
+    /**
+     * Method for directing error messaging output
+     * @param UiError to be displayed on UI but now in console
+     * @param excp to be entered in log file
+     */
+    private void writeInUIAndLog(String UiError, Exception excp ){
+        errorMessageHandler.buildPrintErrorMessage(UiError);
+        logger.makeALog(String.valueOf(excp));
     }
 }

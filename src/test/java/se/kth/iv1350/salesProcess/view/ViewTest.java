@@ -9,6 +9,7 @@ import se.kth.iv1350.salesProcess.integration.ExternalSystemStartUp;
 import se.kth.iv1350.salesProcess.integration.Printer;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Scanner;
 
@@ -27,7 +28,7 @@ class ViewTest {
     private PrintStream originalStream;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         creator = new ExternalSystemStartUp();
         printer = new Printer();
         cashRegister = new CashRegister();
