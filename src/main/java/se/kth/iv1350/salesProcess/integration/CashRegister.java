@@ -6,7 +6,7 @@ import se.kth.iv1350.salesProcess.model.Payment;
  * A representation of the cash register. Every register has one instance.
  * This is the interface to that cash register device.
  */
-public class CashRegister {
+public class CashRegister extends Publisher {
     private double cashBalance;
 
     /**
@@ -22,7 +22,9 @@ public class CashRegister {
      * @param payment to be added
      */
     public void addPayment(Payment payment) {
-    cashBalance = cashBalance+(payment.getPaidAmount() - payment.getChange());
+        float income = (payment.getPaidAmount() - payment.getChange());
+        cashBalance = cashBalance+income;
+        notifyObservers(income);
     }
 
     /**
