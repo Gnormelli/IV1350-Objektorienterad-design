@@ -7,12 +7,14 @@ import static java.lang.Integer.parseInt;
 /**
  * Represents the actual discount to be applied on a sale
  */
-public class Discount {
+public class Discount{
     private final SalesItem discountItem;
     private final DiscountRulesDTO ruleForDiscount;
     private final float amountPercentageDiscount;
     private final int quantityDiscount;
     private final float amountQuantityDiscount;
+    private DiscountFactory discountFactory;
+
 
     /**
      * Create an instance of a discount
@@ -23,12 +25,14 @@ public class Discount {
     public Discount(SalesItem discountItem, DiscountRulesDTO ruleForDiscount) {
         this.discountItem = discountItem;
         this.ruleForDiscount = ruleForDiscount;
-        this.amountPercentageDiscount = amountPercentageItemDiscount();
-        this.quantityDiscount = numberOfItemsForDiscount();
-        this.amountQuantityDiscount = amountQuantityDiscount();
+        this.discountFactory = DiscountFactory.getDiscountFactory();
+        this.amountPercentageDiscount = discountFactory.getCPD().calculate(discountItem, ruleForDiscount);
+        this.amountQuantityDiscount = discountFactory.getCQD().calculate(discountItem, ruleForDiscount);
+        this.quantityDiscount = discountFactory.getCQD().getQuantityDiscount();
     }
 
     /**
+     * Now implemented in Strategy/Factory pattern
      * Used to set the discountable amount from the percentage rule.
      * @return the amount from the percentage rule
      */
@@ -39,6 +43,7 @@ public class Discount {
     }
 
     /**
+     * Now implemented in Strategy/Factory pattern
      * Used to set the amount from the using the quantity discount rule
      * @return the amount for the discount using the quantity rule
      */
@@ -49,6 +54,7 @@ public class Discount {
     }
 
     /**
+     * Now implemented in Strategy/Factory pattern
      * Used to convert the rule from string to integers and apply the rule to
      * get the number of items that can be deducted for in discount
      * @return number of items to deduct for in discount
