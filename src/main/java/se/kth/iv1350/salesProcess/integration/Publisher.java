@@ -1,4 +1,6 @@
-package se.kth.iv1350.salesProcess.model;
+package se.kth.iv1350.salesProcess.integration;
+
+import se.kth.iv1350.salesProcess.integration.Observer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,9 +12,9 @@ import java.util.List;
 public abstract class Publisher {
     private List<Observer> observers = new ArrayList<>();
 
-    void notifyObservers(Sale salesInfo) {
+    void notifyObservers(float income) {
         for (Observer obs : observers) {
-            obs.settledSale(salesInfo);
+            obs.settledSale(income);
         }
     }
 
