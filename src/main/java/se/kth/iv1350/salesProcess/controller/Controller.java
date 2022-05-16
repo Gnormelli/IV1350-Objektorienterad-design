@@ -115,11 +115,15 @@ public class Controller {
         Payment payment = new Payment(paidAmount);
 
         salesInfo.pay(payment);
+        // Add observer
+        cashRegister.addObservers(observers);
+        // Notify observer
         cashRegister.addPayment(payment);
-        salesLog.updateSaleInSystems(salesInfo);
+        // Remove observer
+        cashRegister.removeObservers(observers);
 
+        salesLog.updateSaleInSystems(salesInfo);
         Receipt receipt = new Receipt(salesInfo);
-        receipt.addObservers(observers);
         printer.printReceipt(receipt);
     }
 
