@@ -4,7 +4,7 @@ import se.kth.iv1350.salesProcess.controller.Controller;
 import se.kth.iv1350.salesProcess.controller.OperationFailedException;
 import se.kth.iv1350.salesProcess.integration.*;
 import se.kth.iv1350.salesProcess.model.*;
-import se.kth.iv1350.salesProcess.util.Log;
+import se.kth.iv1350.salesProcess.util.AuditTrailLogHandler;
 import se.kth.iv1350.salesProcess.util.TotalRevenueFileOutput;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class View {
     private final Controller contr;
     private List<RegisteredItemDTO> basketOfItems;
-    private Log logger;
+    private AuditTrailLogHandler logger;
 
     /**
      * Constructor for the view.
@@ -28,7 +28,7 @@ public class View {
      */
     public View(Controller contr) throws IOException {
         this.contr = contr;
-        this.logger = new Log();
+        this.logger = new AuditTrailLogHandler();
         contr.addObserver(new TotalRevenueView());
         contr.addObserver(new TotalRevenueFileOutput());
     }
@@ -49,7 +49,7 @@ public class View {
                 addedItem = contr.addItemToSale(item);
                 System.out.println(printUpdateInList(addedItem));
             } catch (InvalidItemIdentifierException excp) {
-                errorMessageHandler.buildPrintErrorMessage(excp.getMessage());
+                ErrorMessageHandler.buildPrintErrorMessage(excp.getMessage());
             } catch (OperationFailedException excp) {
                 writeInUIAndLog("Item could not be added.",
                         (Exception) excp.getCause());
@@ -133,7 +133,7 @@ public class View {
      * @param excp to be entered in log file
      */
     private void writeInUIAndLog(String UiError, Exception excp ){
-        errorMessageHandler.buildPrintErrorMessage(UiError);
+        ErrorMessageHandler.buildPrintErrorMessage(UiError);
         logger.makeALog(String.valueOf(excp));
     }
 }
