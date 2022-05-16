@@ -8,14 +8,30 @@ import java.util.List;
  */
 
 public class DiscountDatabase {
+    private static final DiscountDatabase DISCOUNT_DATABASE = new DiscountDatabase();
     private List<DiscountData> discounts = new ArrayList<>();
 
     /**
-     * Placeholder or discount database
+     * Placeholder for discount database implemented as a singleton
      */
-    public DiscountDatabase() {
+    private DiscountDatabase(){
         addDiscountData();
     }
+
+    /**
+     * @return the only existing instance of the singleton discount database.
+     */
+    public static DiscountDatabase getDiscountDatabase(){
+        return DISCOUNT_DATABASE;
+    }
+
+    /**
+     * Placeholder for discount database before implemented as a singleton
+     */
+    /*public DiscountDatabase() {
+        addDiscountData();
+    }
+     */
 
     /**
      * Add all the discounts to the database
