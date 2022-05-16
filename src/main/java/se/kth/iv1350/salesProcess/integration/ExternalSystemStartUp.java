@@ -7,7 +7,7 @@ public class ExternalSystemStartUp {
     private final ExternalAccountingSystem externalAccountingSystem = new ExternalAccountingSystem();
     private final ExternalInventorySystem externalInventorySystem = new ExternalInventorySystem();
     private final ElectronicPaymentSystem electronicPaymentSystem = new ElectronicPaymentSystem();
-    private final DiscountDatabase discountDatabase = new DiscountDatabase();
+    private final DiscountDatabase discountDatabase = DiscountDatabase.getDiscountDatabase();
 
     /**
      * Get the external accounting system data
