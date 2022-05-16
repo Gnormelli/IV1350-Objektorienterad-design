@@ -16,19 +16,35 @@ public class ExternalInventorySystem {
     }
 
     /**
+     * Retrieves the item from the external inventory system
+     *
+     * @param registeredItemDTO with item identifier to retrieve
+     * @return item that has been found in the external inventory system
+     * @throws InvalidItemIdentifierException if identifier was not matched in external inventory system
+     * @throws ExternalInventorySystemException if call to external inventory system failed
+     */
+    public ItemDTO retrieveItemFromInventory(RegisteredItemDTO registeredItemDTO) throws InvalidItemIdentifierException {
+        if(registeredItemDTO.getItemIdentifier()== 666666){
+            throw new ExternalInventorySystemException("ERROR: Could not connect to External Inventory System");
+        }
+        return findItemIdentifierInInventory(registeredItemDTO);
+    }
+
+    /**
      * Checks in the placeholder database for the item identifier.
      *
      * @param registeredItemDTO to check if the item is in external inventory system.
      * @return itemDTO if found or null.
+     * @throws InvalidItemIdentifierException if no match found in external inventory database
      */
-    public ItemDTO findItemInInventory(RegisteredItemDTO registeredItemDTO) {
+    private ItemDTO findItemIdentifierInInventory(RegisteredItemDTO registeredItemDTO) throws InvalidItemIdentifierException {
         for(ItemData item : inventoryItems){
             if(item.getItemIdentifier() == registeredItemDTO.getItemIdentifier()){
                 return new ItemDTO(item.name, item.itemIdentifier,item.price,
                         item.rateVAT, item.description);
             }
         }
-        return null;
+        throw new InvalidItemIdentifierException(registeredItemDTO.getItemIdentifier());
     }
 
     /**
@@ -40,6 +56,7 @@ public class ExternalInventorySystem {
         inventoryItems.add(new ItemData("Hamburger", 333, 50, 12.5f,"Cow"));
         inventoryItems.add(new ItemData("Toilet paper", 4444, 25, 25f,"Extra soft"));
         inventoryItems.add(new ItemData("Dishrag", 55555, 15, 25f,"Blue"));
+        inventoryItems.add(new ItemData("INVALID ITEM IDENTIFIER", 666666, 0, 0,"INVALID ITEM IDENTIFIER"));
     }
 
     /**
