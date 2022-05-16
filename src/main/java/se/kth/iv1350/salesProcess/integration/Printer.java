@@ -20,6 +20,6 @@ public class Printer {
      * @param receipt the receipt of the sale
      */
     public void printReceipt(Receipt receipt) {
-        System.out.println(receipt.createStringReceipt());
+        System.out.println(receipt.retrieveStringReceipt());
     }
 }
