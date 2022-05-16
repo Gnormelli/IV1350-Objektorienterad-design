@@ -20,18 +20,18 @@ class ExternalInventorySystemTest {
     }
 
     @Test
-    void testFindItemInInventoryMatching () {
+    void testFindItemInInventoryMatching () throws InvalidItemIdentifierException {
         RegisteredItemDTO searchItem = new RegisteredItemDTO(5, 1);
         int expResult = searchItem.getItemIdentifier();
-        int result = instanceToTest.findItemInInventory(searchItem).getItemIdentifier();
+        int result = instanceToTest.retrieveItemFromInventory(searchItem).getItemIdentifier();
         assertEquals(expResult,result, "Item was not found");
     }
 
     @Test
-    void testFindItemInInventoryNotMatching () {
+    void testFindItemInInventoryNotMatching () throws InvalidItemIdentifierException {
         RegisteredItemDTO searchItem = new RegisteredItemDTO(5, 11);
         int expResult = searchItem.getItemIdentifier();
-        ItemDTO result = instanceToTest.findItemInInventory(searchItem);
+        ItemDTO result = instanceToTest.retrieveItemFromInventory(searchItem);
         assertNotEquals(expResult, result, "Item identifier was found, but should not");
     }
 
