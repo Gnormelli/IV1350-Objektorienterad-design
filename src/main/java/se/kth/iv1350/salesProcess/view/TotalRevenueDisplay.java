@@ -1,7 +1,6 @@
 package se.kth.iv1350.salesProcess.view;
 
-import se.kth.iv1350.salesProcess.model.Sale;
-import se.kth.iv1350.salesProcess.model.Observer;
+import se.kth.iv1350.salesProcess.integration.Observer;
 import se.kth.iv1350.salesProcess.util.LoggerInterface;
 
 /**
@@ -11,8 +10,8 @@ public abstract class TotalRevenueDisplay implements Observer, LoggerInterface {
     private float totalRevenue;
 
     @Override
-    public void settledSale(Sale salesInfo) {
-        calculateTotalRevenue(salesInfo.calculateTotalAmountToPay());
+    public void settledSale(float income ) {
+        calculateTotalRevenue(income);
         log("The total revenue for all sales is: " + totalRevenue + " kr");
     }
 
